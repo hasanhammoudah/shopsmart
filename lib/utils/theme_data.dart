@@ -5,12 +5,21 @@ class Styles {
   static ThemeData themeData(
       {required bool isDarkTheme, required BuildContext context}) {
     return ThemeData(
-        scaffoldBackgroundColor: isDarkTheme
+      scaffoldBackgroundColor: isDarkTheme
+          ? AppColors.darkScaffoldColor
+          : AppColors.lightScaffoldColor,
+      cardColor: isDarkTheme
+          ? const Color.fromARGB(255, 13, 6, 37)
+          : AppColors.lightCardColor,
+      brightness: isDarkTheme ? Brightness.dark : Brightness.light,
+      appBarTheme: AppBarTheme(
+        backgroundColor: isDarkTheme
             ? AppColors.darkScaffoldColor
             : AppColors.lightScaffoldColor,
-        cardColor: isDarkTheme
-            ? AppColors.darkScaffoldColor
-            : AppColors.lightScaffoldColor,
-        brightness: isDarkTheme ? Brightness.dark : Brightness.light);
+        elevation: 0,
+        titleTextStyle:
+            TextStyle(color: isDarkTheme ? Colors.white : Colors.black),
+      ),
+    );
   }
 }

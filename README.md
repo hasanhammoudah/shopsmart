@@ -8,3 +8,6 @@ https://pub.dev/packages/shared_preferences
 
 
 https://pub.dev/packages/provider
+
+
+https://pub.dev/packages/iconly
