@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
-import 'package:shopsmart_users/screens/cart_screen.dart';
+import 'package:shopsmart_users/screens/cart/cart_screen.dart';
 import 'package:shopsmart_users/screens/home_screen.dart';
 import 'package:shopsmart_users/screens/profile_screen.dart';
 import 'package:shopsmart_users/screens/search_screen.dart';
@@ -54,7 +54,11 @@ class _RootScreenState extends State<RootScreen> {
               selectedIcon: Icon(IconlyBold.search),
             ),
             NavigationDestination(
-              icon: Icon(IconlyLight.bag_2),
+              icon: Badge(
+                  backgroundColor: Colors.blue,
+                  textColor: Colors.white,
+                  label: Text('6'),
+                  child: Icon(IconlyLight.bag_2)),
               label: "Cart",
               selectedIcon: Icon(IconlyBold.bag_2),
             ),

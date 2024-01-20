@@ -4,14 +4,14 @@ class SubTitleTextWidget extends StatelessWidget {
   const SubTitleTextWidget(
       {super.key,
       this.label,
-      this.fontSize,
+      this.fontSize = 20,
       this.fontWeight,
       this.decoration,
       this.color,
       this.fontStyle});
 
   final String? label;
-  final double? fontSize;
+  final double fontSize;
   final FontWeight? fontWeight;
   final TextDecoration? decoration;
   final Color? color;

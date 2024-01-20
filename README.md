@@ -11,3 +11,6 @@ https://pub.dev/packages/provider
 
 
 https://pub.dev/packages/iconly
+
+
+https://pub.dev/packages/fancy_shimmer_image
