@@ -4,6 +4,7 @@ import 'package:iconly/iconly.dart';
 import 'package:shopsmart_users/screens/cart/quantity_btm_sheet.dart';
 import 'package:shopsmart_users/screens/widgets/subtitle_text.dart';
 import 'package:shopsmart_users/screens/widgets/title_text.dart';
+import 'package:shopsmart_users/utils/app_constants.dart';
 
 class CartWidget extends StatelessWidget {
   const CartWidget({super.key});
@@ -21,8 +22,7 @@ class CartWidget extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: FancyShimmerImage(
-                  imageUrl:
-                      'https://cdn.britannica.com/77/170477-050-1C747EE3/Laptop-computer.jpg',
+                  imageUrl: AppConstants.imageUrl,
                   height: size.height * 0.2,
                   width: size.height * 0.2,
                 ),
