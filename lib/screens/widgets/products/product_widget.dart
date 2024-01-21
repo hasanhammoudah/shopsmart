@@ -1,6 +1,7 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:shopsmart_users/screens/widgets/subtitle_text.dart';
 import 'package:shopsmart_users/screens/widgets/title_text.dart';
 import 'package:shopsmart_users/utils/app_constants.dart';
 
@@ -44,7 +45,9 @@ class _ProductWidgetState extends State<ProductWidget> {
                 flex: 2,
                 child: IconButton(
                   onPressed: () {},
-                  icon: const Icon(IconlyLight.heart),
+                  icon: const Icon(
+                    IconlyLight.heart,
+                  ),
                 ),
               ),
             ],
@@ -57,7 +60,7 @@ class _ProductWidgetState extends State<ProductWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const TitlesTextWidget(
+                const SubTitleTextWidget(
                   label: '1550.00\$',
                   color: Colors.blue,
                   fontWeight: FontWeight.w600,

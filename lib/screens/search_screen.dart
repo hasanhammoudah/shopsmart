@@ -1,6 +1,6 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:flutter/material.dart';
-import 'package:shopsmart_users/screens/products/product_widget.dart';
+import 'package:shopsmart_users/screens/widgets/products/product_widget.dart';
 import 'package:shopsmart_users/screens/widgets/app_bar_widget.dart';
 import 'package:shopsmart_users/screens/widgets/title_text.dart';
 
