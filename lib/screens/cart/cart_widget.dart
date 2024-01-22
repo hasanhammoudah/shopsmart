@@ -2,6 +2,7 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:shopsmart_users/screens/cart/quantity_btm_sheet.dart';
+import 'package:shopsmart_users/screens/widgets/products/heart_btn.dart';
 import 'package:shopsmart_users/screens/widgets/subtitle_text.dart';
 import 'package:shopsmart_users/screens/widgets/title_text.dart';
 import 'package:shopsmart_users/utils/app_constants.dart';
@@ -51,12 +52,7 @@ class CartWidget extends StatelessWidget {
                                 color: Colors.red,
                               ),
                             ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                IconlyLight.heart,
-                              ),
-                            ),
+                            const HeartButtonWidget(),
                           ],
                         ),
                       ],

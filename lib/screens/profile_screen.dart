@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopsmart_users/providers/theme_provider.dart';
+import 'package:shopsmart_users/screens/inner_screen/viewed_recently.dart';
+import 'package:shopsmart_users/screens/inner_screen/wishlist.dart';
 import 'package:shopsmart_users/screens/widgets/app_bar_widget.dart';
 import 'package:shopsmart_users/screens/widgets/custom_list_title.dart';
 import 'package:shopsmart_users/screens/widgets/subtitle_text.dart';
 import 'package:shopsmart_users/screens/widgets/title_text.dart';
+import 'package:shopsmart_users/services/my_app_functions.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -110,12 +113,17 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   CustomListTitle(
                     label: 'Wishlist',
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(context, WishlistScreen.routeName);
+                    },
                     imagePath: 'assets/images/bag/wishlist_svg.png',
                   ),
                   CustomListTitle(
                     label: 'Viewed recently',
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(
+                          context, ViewedRecentlyScreen.routeName);
+                    },
                     imagePath: 'assets/images/profile/recent.png',
                   ),
                   CustomListTitle(
@@ -171,7 +179,13 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                 await MyAppFunctions.showErrorOrWarringDialog(
+                      context: context,
+                      fct: () {},
+                      isError: false,
+                      subTitle: 'Are you sure you want to signout');
+                },
                 icon: const Icon(
                   Icons.login,
                   color: Colors.white,

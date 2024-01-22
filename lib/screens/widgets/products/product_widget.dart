@@ -1,6 +1,7 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
+import 'package:shopsmart_users/screens/inner_screen/product_details.dart';
+import 'package:shopsmart_users/screens/widgets/products/heart_btn.dart';
 import 'package:shopsmart_users/screens/widgets/subtitle_text.dart';
 import 'package:shopsmart_users/screens/widgets/title_text.dart';
 import 'package:shopsmart_users/utils/app_constants.dart';
@@ -17,7 +18,9 @@ class _ProductWidgetState extends State<ProductWidget> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () {},
+      onTap: () async {
+        await Navigator.pushNamed(context, ProductDetailsScreen.routeName);
+      },
       child: Column(
         children: [
           ClipRRect(
@@ -41,14 +44,9 @@ class _ProductWidgetState extends State<ProductWidget> {
                   fontSize: 18,
                 ),
               ),
-              Flexible(
+              const Flexible(
                 flex: 2,
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    IconlyLight.heart,
-                  ),
-                ),
+                child: HeartButtonWidget(),
               ),
             ],
           ),

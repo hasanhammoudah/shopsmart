@@ -1,6 +1,4 @@
-import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:shopsmart_users/models/categories_model.dart';
 import 'package:shopsmart_users/screens/widgets/app_bar_widget.dart';
 import 'package:shopsmart_users/screens/widgets/products/ctg_rounded_widget.dart';
 import 'package:shopsmart_users/screens/widgets/products/latest_arrival.dart';
