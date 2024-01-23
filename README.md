@@ -1,5 +1,6 @@
 # shopsmart_users
 
+<h1>Packages used in this application :</h1>
 
 https://pub.dev/packages/cupertino_icons
 
@@ -20,3 +21,6 @@ https://pub.dev/packages/dynamic_height_grid_view
 
 
 https://pub.dev/packages/card_swiper
+
+
+https://pub.dev/packages/ionicons

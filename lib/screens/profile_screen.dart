@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopsmart_users/providers/theme_provider.dart';
+import 'package:shopsmart_users/screens/auth/login_screen.dart';
 import 'package:shopsmart_users/screens/inner_screen/viewed_recently.dart';
 import 'package:shopsmart_users/screens/inner_screen/wishlist.dart';
 import 'package:shopsmart_users/screens/widgets/app_bar_widget.dart';
@@ -180,11 +181,12 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () async {
-                 await MyAppFunctions.showErrorOrWarringDialog(
-                      context: context,
-                      fct: () {},
-                      isError: false,
-                      subTitle: 'Are you sure you want to signout');
+                  Navigator.pushNamed(context, LoginScreen.routeName);
+                  // await MyAppFunctions.showErrorOrWarringDialog(
+                  //     context: context,
+                  //     fct: () async {},
+                  //     isError: false,
+                  //     subTitle: 'Are you sure you want to signout');
                 },
                 icon: const Icon(
                   Icons.login,
