@@ -1,4 +1,4 @@
-# shopsmart_users
+# shopsmart
 
 <h1>Packages used in this application :</h1>
 
@@ -24,3 +24,6 @@ https://pub.dev/packages/card_swiper
 
 
 https://pub.dev/packages/ionicons
+
+
+https://pub.dev/packages/uuid

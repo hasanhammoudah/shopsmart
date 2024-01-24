@@ -8,7 +8,6 @@ import 'package:shopsmart_users/screens/widgets/app_bar_widget.dart';
 import 'package:shopsmart_users/screens/widgets/custom_list_title.dart';
 import 'package:shopsmart_users/screens/widgets/subtitle_text.dart';
 import 'package:shopsmart_users/screens/widgets/title_text.dart';
-import 'package:shopsmart_users/services/my_app_functions.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -48,22 +47,20 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Positioned(
-                      child: Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Theme.of(context).cardColor,
-                          border: Border.all(
-                            color: Colors.red,
-                            width: 3,
-                          ),
+                    Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(context).cardColor,
+                        border: Border.all(
+                          color: Colors.red,
+                          width: 3,
                         ),
-                        child: const CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'),
-                        ),
+                      ),
+                      child: const CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'),
                       ),
                     ),
                     const SizedBox(

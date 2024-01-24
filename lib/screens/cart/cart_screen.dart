@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopsmart_users/providers/cart_provider.dart';
 import 'package:shopsmart_users/screens/cart/bottom_checkout.dart';
 import 'package:shopsmart_users/screens/cart/cart_widget.dart';
+import 'package:shopsmart_users/screens/search_screen.dart';
 import 'package:shopsmart_users/screens/widgets/app_bar_widget.dart';
 import 'package:shopsmart_users/screens/widgets/empty_bag.dart';
 import 'package:shopsmart_users/screens/widgets/title_text.dart';
+import 'package:shopsmart_users/services/my_app_functions.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -12,14 +16,18 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isEmpty
-        ? const Scaffold(
+    final cartProvider = Provider.of<CartProvider>(context);
+    return cartProvider.getCartItems.isEmpty
+        ? Scaffold(
             body: EmptyBagWidget(
               imagePath: 'assets/images/bag/shopping_basket.png',
               title: 'Your cart is empty!',
               subtitle:
                   'Looks like your cart is empty add something and make me happy',
               buttonText: 'shop now',
+              onPressed: () {
+                Navigator.pushNamed(context, SearchScreen.routeName);
+              },
             ),
           )
         : Scaffold(
@@ -27,7 +35,15 @@ class CartScreen extends StatelessWidget {
             appBar: AppBarWidget(
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    MyAppFunctions.showErrorOrWarringDialog(
+                        isError: false,
+                        context: context,
+                        fct: () {
+                          cartProvider.clearLocalCart();
+                        },
+                        subTitle: 'Clear cart?');
+                  },
                   icon: const Icon(
                     Icons.delete_forever_rounded,
                     color: Colors.red,
@@ -35,17 +51,29 @@ class CartScreen extends StatelessWidget {
                 ),
               ],
               imagePath: "assets/images/bag/shopping_cart.png",
-              child: const TitlesTextWidget(
-                label: 'Cart (6)',
+              child: TitlesTextWidget(
+                label: 'Cart (${cartProvider.getCartItems.length})',
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
             ),
-            body: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return const CartWidget();
-              },
+            body: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: cartProvider.getCartItems.length,
+                    itemBuilder: (context, index) {
+                      return ChangeNotifierProvider.value(
+                          value:
+                              cartProvider.getCartItems.values.toList()[index],
+                          child: const CartWidget());
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  height: kBottomNavigationBarHeight + 10,
+                ),
+              ],
             ),
           );
   }
