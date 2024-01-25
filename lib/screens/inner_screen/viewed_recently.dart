@@ -1,9 +1,12 @@
 import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shopsmart_users/providers/viewed_recently_provider.dart';
 import 'package:shopsmart_users/screens/widgets/app_bar_widget.dart';
 import 'package:shopsmart_users/screens/widgets/empty_bag.dart';
 import 'package:shopsmart_users/screens/widgets/products/product_widget.dart';
 import 'package:shopsmart_users/screens/widgets/title_text.dart';
+import 'package:shopsmart_users/services/my_app_functions.dart';
 
 class ViewedRecentlyScreen extends StatelessWidget {
   const ViewedRecentlyScreen({super.key});
@@ -13,7 +16,8 @@ class ViewedRecentlyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isEmpty
+    final viewdProdProvider = Provider.of<ViewedProdProvider>(context);
+    return viewdProdProvider.getViewedProd.isEmpty
         ? const Scaffold(
             body: EmptyBagWidget(
               imagePath: 'assets/images/bag/order.png',
@@ -27,7 +31,15 @@ class ViewedRecentlyScreen extends StatelessWidget {
             appBar: AppBarWidget(
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // MyAppFunctions.showErrorOrWarringDialog(
+                    //     isError: false,
+                    //     context: context,
+                    //     fct: () {
+                    //      viewdProdProvider.
+                    //     },
+                    //     subTitle: 'Clear viewed?');
+                  },
                   icon: const Icon(
                     Icons.delete_forever_rounded,
                     color: Colors.red,
@@ -35,8 +47,9 @@ class ViewedRecentlyScreen extends StatelessWidget {
                 ),
               ],
               imagePath: "assets/images/bag/shopping_cart.png",
-              child: const TitlesTextWidget(
-                label: 'Viewed recently (6)',
+              child: TitlesTextWidget(
+                label:
+                    'Viewed recently (${viewdProdProvider.getViewedProd.length})',
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -45,11 +58,16 @@ class ViewedRecentlyScreen extends StatelessWidget {
               mainAxisSpacing: 12,
               crossAxisSpacing: 12,
               builder: (context, index) {
-                return const ProductWidget(
-                  productId: '',
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ProductWidget(
+                    productId: viewdProdProvider.getViewedProd.values
+                        .toList()[index]
+                        .productId,
+                  ),
                 );
               },
-              itemCount: 200,
+              itemCount: viewdProdProvider.getViewedProd.length,
               crossAxisCount: 2,
             ),
           );

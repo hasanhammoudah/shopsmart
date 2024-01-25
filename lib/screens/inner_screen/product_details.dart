@@ -21,7 +21,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
-    String? productId = ModalRoute.of(context)!.settings.arguments as String?;
+    // TODO fix issues
+    dynamic productId = ModalRoute.of(context)!.settings.arguments;
     final getCurrentProduct =
         productProvider.findByProductId(productId.toString());
     final cartProvider = Provider.of<CartProvider>(context);
@@ -88,6 +89,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             children: [
                               HeartButtonWidget(
                                 bkgColor: Colors.blue.shade100,
+                                productId: getCurrentProduct.productId,
                               ),
                               const SizedBox(
                                 width: 20,

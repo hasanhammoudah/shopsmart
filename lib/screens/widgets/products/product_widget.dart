@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopsmart_users/providers/cart_provider.dart';
 import 'package:shopsmart_users/providers/product_provider.dart';
+import 'package:shopsmart_users/providers/viewed_recently_provider.dart';
 import 'package:shopsmart_users/screens/inner_screen/product_details.dart';
 import 'package:shopsmart_users/screens/widgets/products/heart_btn.dart';
 import 'package:shopsmart_users/screens/widgets/subtitle_text.dart';
@@ -23,16 +24,19 @@ class ProductWidget extends StatefulWidget {
 class _ProductWidgetState extends State<ProductWidget> {
   @override
   Widget build(BuildContext context) {
-    // final productModel = Provider.of<ProductModel>(context);
     final productProvider = Provider.of<ProductProvider>(context);
     final getCurrentProduct = productProvider.findByProductId(widget.productId);
     final cartProvider = Provider.of<CartProvider>(context);
+    final viewdProdProvider = Provider.of<ViewedProdProvider>(context);
 
     Size size = MediaQuery.of(context).size;
     return getCurrentProduct == null
         ? const SizedBox.shrink()
         : GestureDetector(
             onTap: () async {
+              viewdProdProvider.addViewProd(
+                  productId: getCurrentProduct.productId);
+
               await Navigator.pushNamed(context, ProductDetailsScreen.routeName,
                   arguments: getCurrentProduct.productId);
             },
@@ -59,9 +63,11 @@ class _ProductWidgetState extends State<ProductWidget> {
                         fontSize: 18,
                       ),
                     ),
-                    const Flexible(
+                    Flexible(
                       flex: 2,
-                      child: HeartButtonWidget(),
+                      child: HeartButtonWidget(
+                        productId: getCurrentProduct.productId,
+                      ),
                     ),
                   ],
                 ),

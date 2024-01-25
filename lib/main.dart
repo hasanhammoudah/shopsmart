@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:shopsmart_users/providers/cart_provider.dart';
 import 'package:shopsmart_users/providers/product_provider.dart';
 import 'package:shopsmart_users/providers/theme_provider.dart';
+import 'package:shopsmart_users/providers/viewed_recently_provider.dart';
+import 'package:shopsmart_users/providers/wishlist_provider.dart';
 import 'package:shopsmart_users/root_screen.dart';
 import 'package:shopsmart_users/screens/auth/forgot_password.dart';
 import 'package:shopsmart_users/screens/auth/login_screen.dart';
@@ -27,11 +29,17 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) {
           return ThemeProvider();
         }),
-         ChangeNotifierProvider(create: (_) {
+        ChangeNotifierProvider(create: (_) {
           return ProductProvider();
         }),
         ChangeNotifierProvider(create: (_) {
           return CartProvider();
+        }),
+        ChangeNotifierProvider(create: (_) {
+          return WishlistProvider();
+        }),
+         ChangeNotifierProvider(create: (_) {
+          return ViewedProdProvider();
         }),
       ],
       child: Consumer<ThemeProvider>(builder: (context, themeProvider, child) {
@@ -48,7 +56,9 @@ class MyApp extends StatelessWidget {
                 const ForgotPasswordScreen(),
             RootScreen.routeName: (context) => const RootScreen(),
             ProductDetailsScreen.routeName: (context) =>
-                const ProductDetailsScreen(productId: '',),
+                const ProductDetailsScreen(
+                  productId: '',
+                ),
             WishlistScreen.routeName: (context) => const WishlistScreen(),
             ViewedRecentlyScreen.routeName: (context) =>
                 const ViewedRecentlyScreen(),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopsmart_users/models/product_model.dart';
 import 'package:shopsmart_users/providers/cart_provider.dart';
+import 'package:shopsmart_users/providers/viewed_recently_provider.dart';
 import 'package:shopsmart_users/screens/inner_screen/product_details.dart';
 import 'package:shopsmart_users/screens/widgets/products/heart_btn.dart';
 import 'package:shopsmart_users/screens/widgets/subtitle_text.dart';
@@ -14,12 +15,14 @@ class LatestArrivalProductsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final productModel = Provider.of<ProductModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
+    final viewdProdProvider = Provider.of<ViewedProdProvider>(context);
 
     Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () async {
+          viewdProdProvider.addViewProd(productId: productModel.productId);
           await Navigator.pushNamed(
             context,
             ProductDetailsScreen.routeName,
@@ -62,7 +65,9 @@ class LatestArrivalProductsWidget extends StatelessWidget {
                     FittedBox(
                       child: Row(
                         children: [
-                          const HeartButtonWidget(),
+                          HeartButtonWidget(
+                            productId: productModel.productId,
+                          ),
                           IconButton(
                             onPressed: () {
                               if (cartProvider.isProductCart(
