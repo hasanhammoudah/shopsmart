@@ -17,7 +17,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
-    return cartProvider.getCartItems.isEmpty
+    return cartProvider.getCartitems.isEmpty
         ? Scaffold(
             body: EmptyBagWidget(
               imagePath: 'assets/images/bag/shopping_basket.png',
@@ -40,7 +40,8 @@ class CartScreen extends StatelessWidget {
                         isError: false,
                         context: context,
                         fct: () {
-                          cartProvider.clearLocalCart();
+                          cartProvider.clearCartFromFirebase();
+                          Navigator.pop(context);
                         },
                         subTitle: 'Clear cart?');
                   },
@@ -52,7 +53,7 @@ class CartScreen extends StatelessWidget {
               ],
               imagePath: "assets/images/bag/shopping_cart.png",
               child: TitlesTextWidget(
-                label: 'Cart (${cartProvider.getCartItems.length})',
+                label: 'Cart (${cartProvider.getCartitems.length})',
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -61,11 +62,11 @@ class CartScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: ListView.builder(
-                    itemCount: cartProvider.getCartItems.length,
+                    itemCount: cartProvider.getCartitems.length,
                     itemBuilder: (context, index) {
                       return ChangeNotifierProvider.value(
                           value:
-                              cartProvider.getCartItems.values.toList()[index],
+                              cartProvider.getCartitems.values.toList()[index],
                           child: const CartWidget());
                     },
                   ),

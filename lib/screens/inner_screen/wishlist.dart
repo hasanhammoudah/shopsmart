@@ -17,7 +17,7 @@ class WishlistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final wishListProvider = Provider.of<WishlistProvider>(context);
-    return wishListProvider.getWishlist.isEmpty
+    return wishListProvider.getWishlists.isEmpty
         ? Scaffold(
             body: EmptyBagWidget(
                 imagePath: 'assets/images/bag/bag_wish.png',
@@ -37,7 +37,8 @@ class WishlistScreen extends StatelessWidget {
                     MyAppFunctions.showErrorOrWarringDialog(
                         isError: false,
                         context: context,
-                        fct: () {
+                        fct: () async {
+                          await wishListProvider.clearWishlistFromFirebase();
                           wishListProvider.clearLocalWishlist();
                         },
                         subTitle: 'Clear wishlist?');
@@ -50,7 +51,7 @@ class WishlistScreen extends StatelessWidget {
               ],
               imagePath: "assets/images/bag/shopping_cart.png",
               child: TitlesTextWidget(
-                label: 'Wishlist (${wishListProvider.getWishlist.length})',
+                label: 'Wishlist (${wishListProvider.getWishlists.length})',
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -62,13 +63,13 @@ class WishlistScreen extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ProductWidget(
-                    productId: wishListProvider.getWishlist.values
+                    productId: wishListProvider.getWishlists.values
                         .toList()[index]
                         .productId,
                   ),
                 );
               },
-              itemCount: wishListProvider.getWishlist.length,
+              itemCount: wishListProvider.getWishlists.length,
               crossAxisCount: 2,
             ),
           );

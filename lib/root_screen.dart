@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:shopsmart_users/providers/cart_provider.dart';
+import 'package:shopsmart_users/providers/product_provider.dart';
+import 'package:shopsmart_users/providers/wishlist_provider.dart';
 import 'package:shopsmart_users/screens/cart/cart_screen.dart';
 import 'package:shopsmart_users/screens/home_screen.dart';
 import 'package:shopsmart_users/screens/profile_screen.dart';
@@ -19,6 +23,7 @@ class _RootScreenState extends State<RootScreen> {
   late List<Widget> screens;
   int currentScreen = 0;
   late PageController controller;
+  bool isLoadingProd = true;
 
   @override
   void initState() {
@@ -32,10 +37,34 @@ class _RootScreenState extends State<RootScreen> {
     controller = PageController(initialPage: currentScreen);
   }
 
+  Future<void> fetchNCT() async {
+    final productProvider =
+        Provider.of<ProductProvider>(context, listen: false);
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    final wishListProvider =
+        Provider.of<WishlistProvider>(context, listen: false);
+
+    try {
+      Future.wait({productProvider.fetchProduct()});
+      Future.wait({wishListProvider.fetchWishlist()});
+      Future.wait({cartProvider.fetchCart()});
+    } catch (error) {
+      log(error.toString());
+    }
+  }
+
+
+  @override
+  void didChangeDependencies() {
+    if (isLoadingProd) {
+      fetchNCT();
+    }
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     final carProvider = Provider.of<CartProvider>(context);
-
     return Scaffold(
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
@@ -62,7 +91,7 @@ class _RootScreenState extends State<RootScreen> {
               icon: Badge(
                   backgroundColor: Colors.blue,
                   textColor: Colors.white,
-                  label: Text(carProvider.getCartItems.length.toString()),
+                  label: Text(carProvider.getCartitems.length.toString()),
                   child: const Icon(IconlyLight.bag_2)),
               label: "Cart",
               selectedIcon: const Icon(IconlyBold.bag_2),

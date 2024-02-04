@@ -8,6 +8,7 @@ import 'package:shopsmart_users/screens/inner_screen/product_details.dart';
 import 'package:shopsmart_users/screens/widgets/products/heart_btn.dart';
 import 'package:shopsmart_users/screens/widgets/subtitle_text.dart';
 import 'package:shopsmart_users/screens/widgets/title_text.dart';
+import 'package:shopsmart_users/services/my_app_functions.dart';
 
 class ProductWidget extends StatefulWidget {
   const ProductWidget({
@@ -25,7 +26,7 @@ class _ProductWidgetState extends State<ProductWidget> {
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
-    final getCurrentProduct = productProvider.findByProductId(widget.productId);
+    final getCurrentProduct = productProvider.findByProdId(widget.productId);
     final cartProvider = Provider.of<CartProvider>(context);
     final viewdProdProvider = Provider.of<ViewedProdProvider>(context);
 
@@ -89,19 +90,35 @@ class _ProductWidgetState extends State<ProductWidget> {
                         color: Colors.lightBlue,
                         child: InkWell(
                           borderRadius: BorderRadius.circular(12),
-                          onTap: () {
-                            if (cartProvider.isProductCart(
+                          onTap: () async {
+                                if (cartProvider.isProdinCart(
                                 productId: getCurrentProduct.productId)) {
                               return;
                             }
-                            cartProvider.addProductToCart(
-                                productId: getCurrentProduct.productId);
+                            try {
+                              await cartProvider.addToCartFirebase(
+                                productId: getCurrentProduct.productId,
+                                qty: 1,
+                                context: context,
+                              );
+                            } catch (e) {
+                              MyAppFunctions.showErrorOrWarringDialog(
+                                  context: context,
+                                  fct: () {},
+                                  subTitle: e.toString());
+                            }
+                            // if (cartProvider.isProductCart(
+                            //     productId: getCurrentProduct.productId)) {
+                            //   return;
+                            // }
+                            // cartProvider.addProductToCart(
+                            //     productId: getCurrentProduct.productId);
                           },
                           splashColor: Colors.red,
                           child: Padding(
                             padding: const EdgeInsets.all(6.0),
                             child: Icon(
-                              cartProvider.isProductCart(
+                              cartProvider.isProdinCart(
                                       productId: getCurrentProduct.productId)
                                   ? Icons.check
                                   : Icons.add_shopping_cart_rounded,

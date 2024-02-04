@@ -27,3 +27,18 @@ https://pub.dev/packages/ionicons
 
 
 https://pub.dev/packages/uuid
+
+
+https://pub.dev/packages/firebase_auth
+
+
+https://pub.dev/packages/firebase_storage
+
+
+https://pub.dev/packages/cloud_firestore
+
+
+https://pub.dev/packages/google_sign_in
+
+
+https://pub.dev/packages/fluttertoast

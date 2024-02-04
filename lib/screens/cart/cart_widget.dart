@@ -19,8 +19,7 @@ class CartWidget extends StatelessWidget {
     final cartProvider = Provider.of<CartProvider>(context);
     final cartModel = Provider.of<CartModel>(context);
     final productProvider = Provider.of<ProductProvider>(context);
-    final getCurrentProduct =
-        productProvider.findByProductId(cartModel.productId);
+    final getCurrentProduct = productProvider.findByProdId(cartModel.productId);
 
     return getCurrentProduct == null
         ? const SizedBox.shrink()
@@ -57,10 +56,15 @@ class CartWidget extends StatelessWidget {
                               Column(
                                 children: [
                                   IconButton(
-                                    onPressed: () {
-                                      cartProvider.removeOneItem(
+                                    onPressed: () async {
+                                      cartProvider.removeCartItemFromFirestore(
+                                        cartId: cartModel.cartId,
                                         productId: getCurrentProduct.productId,
+                                        qty: cartModel.quantity,
                                       );
+                                      // cartProvider.removeOneItem(
+                                      //   productId: getCurrentProduct.productId,
+                                      // );
                                     },
                                     icon: const Icon(
                                       Icons.clear,

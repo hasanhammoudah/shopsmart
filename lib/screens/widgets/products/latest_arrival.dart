@@ -7,6 +7,7 @@ import 'package:shopsmart_users/providers/viewed_recently_provider.dart';
 import 'package:shopsmart_users/screens/inner_screen/product_details.dart';
 import 'package:shopsmart_users/screens/widgets/products/heart_btn.dart';
 import 'package:shopsmart_users/screens/widgets/subtitle_text.dart';
+import 'package:shopsmart_users/services/my_app_functions.dart';
 
 class LatestArrivalProductsWidget extends StatelessWidget {
   const LatestArrivalProductsWidget({super.key});
@@ -26,7 +27,7 @@ class LatestArrivalProductsWidget extends StatelessWidget {
           await Navigator.pushNamed(
             context,
             ProductDetailsScreen.routeName,
-            arguments: productModel,
+            arguments: productModel.productId,
           );
         },
         child: SizedBox(
@@ -69,16 +70,26 @@ class LatestArrivalProductsWidget extends StatelessWidget {
                             productId: productModel.productId,
                           ),
                           IconButton(
-                            onPressed: () {
-                              if (cartProvider.isProductCart(
+                            onPressed: () async {
+                              if (cartProvider.isProdinCart(
                                   productId: productModel.productId)) {
                                 return;
                               }
-                              cartProvider.addProductToCart(
-                                  productId: productModel.productId);
+                              try {
+                                await cartProvider.addToCartFirebase(
+                                  productId: productModel.productId,
+                                  qty: 1,
+                                  context: context,
+                                );
+                              } catch (e) {
+                                MyAppFunctions.showErrorOrWarringDialog(
+                                    context: context,
+                                    fct: () {},
+                                    subTitle: e.toString());
+                              }
                             },
                             icon: Icon(
-                              cartProvider.isProductCart(
+                              cartProvider.isProdinCart(
                                       productId: productModel.productId)
                                   ? Icons.check
                                   : Icons.add_shopping_cart_rounded,

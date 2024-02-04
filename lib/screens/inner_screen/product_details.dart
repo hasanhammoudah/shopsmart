@@ -7,11 +7,13 @@ import 'package:shopsmart_users/screens/widgets/app_bar_widget.dart';
 import 'package:shopsmart_users/screens/widgets/products/heart_btn.dart';
 import 'package:shopsmart_users/screens/widgets/subtitle_text.dart';
 import 'package:shopsmart_users/screens/widgets/title_text.dart';
+import 'package:shopsmart_users/services/my_app_functions.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
-  const ProductDetailsScreen({super.key, required this.productId});
+  const ProductDetailsScreen({
+    super.key,
+  });
   static const routeName = "/ProductDetailsScreen";
-  final String productId;
 
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
@@ -21,10 +23,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
-    // TODO fix issues
-    dynamic productId = ModalRoute.of(context)!.settings.arguments;
+   
+    String productId = ModalRoute.of(context)!.settings.arguments as String;
     final getCurrentProduct =
-        productProvider.findByProductId(productId.toString());
+        productProvider.findByProdId(productId.toString());
     final cartProvider = Provider.of<CartProvider>(context);
 
     Size size = MediaQuery.of(context).size;
@@ -60,7 +62,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             Flexible(
                               child: Text(
                                 getCurrentProduct.productTitle,
-                                // TODO What's mean this attribute
                                 softWrap: true,
                                 style: const TextStyle(
                                   fontSize: 20,
@@ -106,26 +107,44 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         ),
                                       ),
                                     ),
-                                    onPressed: () {
-                                      if (cartProvider.isProductCart(
+                                    onPressed: () async {
+                                      if (cartProvider.isProdinCart(
                                           productId:
                                               getCurrentProduct.productId)) {
                                         return;
                                       }
-                                      cartProvider.addProductToCart(
+                                      try {
+                                        await cartProvider.addToCartFirebase(
                                           productId:
-                                              getCurrentProduct.productId);
+                                              getCurrentProduct.productId,
+                                          qty: 1,
+                                          context: context,
+                                        );
+                                      } catch (e) {
+                                        MyAppFunctions.showErrorOrWarringDialog(
+                                            context: context,
+                                            fct: () {},
+                                            subTitle: e.toString());
+                                      }
+                                      // if (cartProvider.isProductCart(
+                                      //     productId:
+                                      //         getCurrentProduct.productId)) {
+                                      //   return;
+                                      // }
+                                      // cartProvider.addProductToCart(
+                                      //     productId:
+                                      //         getCurrentProduct.productId);
                                     },
                                     icon: Icon(
                                       color: Colors.white,
-                                      cartProvider.isProductCart(
+                                      cartProvider.isProdinCart(
                                               productId:
                                                   getCurrentProduct.productId)
                                           ? Icons.check
                                           : Icons.add_shopping_cart_rounded,
                                     ),
                                     label: Text(
-                                      cartProvider.isProductCart(
+                                      cartProvider.isProdinCart(
                                               productId:
                                                   getCurrentProduct.productId)
                                           ? 'in cart'

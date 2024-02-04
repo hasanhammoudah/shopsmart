@@ -55,7 +55,6 @@ class MyAppFunctions {
                     TextButton(
                       onPressed: () {
                         fct();
-                        Navigator.pop(context);
                       },
                       child: const SubTitleTextWidget(
                         label: 'Ok',
