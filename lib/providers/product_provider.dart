@@ -24,6 +24,7 @@ class ProductProvider extends ChangeNotifier {
     return categoryList;
   }
 
+
   List<ProductModel> searchQuery(
       {required String searchText, required List<ProductModel> passedList}) {
     List<ProductModel> searchList = passedList
@@ -58,7 +59,8 @@ class ProductProvider extends ChangeNotifier {
       return productDb.snapshots().map((snapshots) {
         products.clear();
         for (var element in snapshots.docs) {
-          products.insert(0, ProductModel.fromFirestore(element));
+          products.add(ProductModel.fromFirestore(element));
+          // product.insert(0,ProductModel.fromFirestore(element));
         }
         return products;
       });

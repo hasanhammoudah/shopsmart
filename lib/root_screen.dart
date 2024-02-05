@@ -5,6 +5,7 @@ import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:shopsmart_users/providers/cart_provider.dart';
 import 'package:shopsmart_users/providers/product_provider.dart';
+import 'package:shopsmart_users/providers/user_provider.dart';
 import 'package:shopsmart_users/providers/wishlist_provider.dart';
 import 'package:shopsmart_users/screens/cart/cart_screen.dart';
 import 'package:shopsmart_users/screens/home_screen.dart';
@@ -41,6 +42,7 @@ class _RootScreenState extends State<RootScreen> {
     final productProvider =
         Provider.of<ProductProvider>(context, listen: false);
     final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
     final wishListProvider =
         Provider.of<WishlistProvider>(context, listen: false);
 
@@ -48,11 +50,11 @@ class _RootScreenState extends State<RootScreen> {
       Future.wait({productProvider.fetchProduct()});
       Future.wait({wishListProvider.fetchWishlist()});
       Future.wait({cartProvider.fetchCart()});
+      Future.wait({userProvider.fetchUserInfo()});
     } catch (error) {
       log(error.toString());
     }
   }
-
 
   @override
   void didChangeDependencies() {

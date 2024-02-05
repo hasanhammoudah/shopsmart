@@ -8,6 +8,7 @@ import 'package:shopsmart_users/screens/auth/login_screen.dart';
 import 'package:shopsmart_users/screens/inner_screen/loading_manager.dart';
 import 'package:shopsmart_users/screens/inner_screen/viewed_recently.dart';
 import 'package:shopsmart_users/screens/inner_screen/wishlist.dart';
+import 'package:shopsmart_users/screens/orders/orders_screen.dart';
 import 'package:shopsmart_users/screens/widgets/app_bar_widget.dart';
 import 'package:shopsmart_users/screens/widgets/custom_list_title.dart';
 import 'package:shopsmart_users/screens/widgets/subtitle_text.dart';
@@ -149,7 +150,10 @@ class _ProfileScreenState extends State<ProfileScreen>
                       visible: userModel == null ? false : true,
                       child: CustomListTitle(
                         label: 'All Order',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, OrdersScreenFree.routeName);
+                        },
                         imagePath: 'assets/images/bag/bag_wish.png',
                       ),
                     ),

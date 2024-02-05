@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shopsmart_users/providers/cart_provider.dart';
+import 'package:shopsmart_users/providers/order_provider.dart';
 import 'package:shopsmart_users/providers/product_provider.dart';
 import 'package:shopsmart_users/providers/theme_provider.dart';
 import 'package:shopsmart_users/providers/user_provider.dart';
@@ -15,6 +16,7 @@ import 'package:shopsmart_users/screens/auth/register_screen.dart';
 import 'package:shopsmart_users/screens/inner_screen/product_details.dart';
 import 'package:shopsmart_users/screens/inner_screen/viewed_recently.dart';
 import 'package:shopsmart_users/screens/inner_screen/wishlist.dart';
+import 'package:shopsmart_users/screens/orders/orders_screen.dart';
 import 'package:shopsmart_users/screens/search_screen.dart';
 import 'package:shopsmart_users/utils/firebase_key.dart';
 import 'package:shopsmart_users/utils/theme_data.dart';
@@ -83,6 +85,9 @@ class MyApp extends StatelessWidget {
               ChangeNotifierProvider(create: (_) {
                 return UserProvider();
               }),
+              ChangeNotifierProvider(create: (_) {
+                return OrderProvider();
+              }),
             ],
             child: Consumer<ThemeProvider>(
               builder: (context, themeProvider, child) {
@@ -95,6 +100,8 @@ class MyApp extends StatelessWidget {
                   home: const RootScreen(),
                   routes: {
                     SearchScreen.routeName: (context) => const SearchScreen(),
+                    OrdersScreenFree.routeName: (context) =>
+                        const OrdersScreenFree(),
                     LoginScreen.routeName: (context) => const LoginScreen(),
                     ForgotPasswordScreen.routeName: (context) =>
                         const ForgotPasswordScreen(),

@@ -1,22 +1,36 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopsmart_users/providers/cart_provider.dart';
+import 'package:shopsmart_users/providers/product_provider.dart';
+import 'package:shopsmart_users/providers/user_provider.dart';
 import 'package:shopsmart_users/screens/cart/bottom_checkout.dart';
 import 'package:shopsmart_users/screens/cart/cart_widget.dart';
+import 'package:shopsmart_users/screens/inner_screen/loading_manager.dart';
 import 'package:shopsmart_users/screens/search_screen.dart';
 import 'package:shopsmart_users/screens/widgets/app_bar_widget.dart';
 import 'package:shopsmart_users/screens/widgets/empty_bag.dart';
 import 'package:shopsmart_users/screens/widgets/title_text.dart';
 import 'package:shopsmart_users/services/my_app_functions.dart';
+import 'package:uuid/uuid.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
 
-  final bool isEmpty = false;
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
+    final productProvider = Provider.of<ProductProvider>(context);
+    final userProvider = Provider.of<UserProvider>(context);
+
     return cartProvider.getCartitems.isEmpty
         ? Scaffold(
             body: EmptyBagWidget(
@@ -31,7 +45,13 @@ class CartScreen extends StatelessWidget {
             ),
           )
         : Scaffold(
-            bottomSheet: const CartBottomSheetWidget(),
+            bottomSheet: CartBottomSheetWidget(function: () async {
+              await placeOrderAdvanced(
+                cartProvider: cartProvider,
+                productProvider: productProvider,
+                userProvider: userProvider,
+              );
+            }),
             appBar: AppBarWidget(
               actions: [
                 IconButton(
@@ -58,24 +78,83 @@ class CartScreen extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
-            body: Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: cartProvider.getCartitems.length,
-                    itemBuilder: (context, index) {
-                      return ChangeNotifierProvider.value(
-                          value:
-                              cartProvider.getCartitems.values.toList()[index],
-                          child: const CartWidget());
-                    },
+            body: LoadingManager(
+              isLoading: _isLoading,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: cartProvider.getCartitems.length,
+                      itemBuilder: (context, index) {
+                        return ChangeNotifierProvider.value(
+                            value: cartProvider.getCartitems.values
+                                .toList()[index],
+                            child: const CartWidget());
+                      },
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: kBottomNavigationBarHeight + 10,
-                ),
-              ],
+                  const SizedBox(
+                    height: kBottomNavigationBarHeight + 10,
+                  ),
+                ],
+              ),
             ),
           );
+  }
+
+  Future<void> placeOrderAdvanced({
+    required CartProvider cartProvider,
+    required ProductProvider productProvider,
+    required UserProvider userProvider,
+  }) async {
+    final auth = FirebaseAuth.instance;
+    User? user = auth.currentUser;
+    if (user == null) {
+      return;
+    }
+    final uid = user.uid;
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+      cartProvider.getCartitems.forEach((key, value) async {
+        final getCurrentProduct = productProvider.findByProdId(value.productId);
+        final orderId = const Uuid().v4();
+        await FirebaseFirestore.instance
+            .collection("ordersAdvanced")
+            .doc(orderId)
+            .set({
+          'orderId': orderId,
+          'userId': uid,
+          'productId': value.productId,
+          "productTitle": getCurrentProduct!.productTitle,
+          'price':
+              double.parse(getCurrentProduct.productPrice) * value.quantity,
+          'totalPrice':
+              cartProvider.getTotal(productsProvider: productProvider),
+          'quantity': value.quantity,
+          'imageUrl': getCurrentProduct.productImage,
+          'userName': userProvider.getUserModel!.userName,
+          'orderDate': Timestamp.now(),
+        });
+      });
+      await cartProvider.clearCartFromFirebase();
+      cartProvider.clearLocalCart();
+      MyAppFunctions.showErrorOrWarringDialog(
+        context: context,
+        fct: () {},
+        subTitle: 'Successfully',
+      );
+    } catch (e) {
+      MyAppFunctions.showErrorOrWarringDialog(
+        context: context,
+        fct: () {},
+        subTitle: e.toString(),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 }
