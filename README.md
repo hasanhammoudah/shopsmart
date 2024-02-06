@@ -1,7 +1,4 @@
 # shopsmart
-
-
-# adaptive_layout_practice
 <strong>This is mobile screen!</strong>
 <br></br>
 <img src="assets/images/screenshot-1707218090016.png" alt="Example Image 1" width="300" height="300">
