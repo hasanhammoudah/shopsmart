@@ -4,7 +4,7 @@
 # adaptive_layout_practice
 <strong>This is mobile screen!</strong>
 <br></br>
-<img src="assets/images/screenshot-1707218090016.png" alt="Example Image 1" width="300" height="300">
+<img src="assets/images/screenshot-1707218090016.png" alt="Example Image 1" width="300" height="200">
 <br></br>
 <img src="assets/images/screenshot-1707218936954.png alt="Example Image 1" width="300" height="300">
 <br></br>
