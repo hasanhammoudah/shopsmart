@@ -33,7 +33,7 @@ class _HeartButtonWidgetState extends State<HeartButtonWidget> {
           elevation: 10,
         ),
         onPressed: () async {
-          wishListProvider.addOrRemoveFromWishlist(productId: widget.productId);
+          // wishListProvider.addOrRemoveFromWishlist(productId: widget.productId);
           if (wishListProvider.getWishlists.containsKey(widget.productId)) {
             wishListProvider.removeWishlistItemFromFirestore(
               wishlistId:

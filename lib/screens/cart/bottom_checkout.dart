@@ -39,17 +39,16 @@ class CartBottomSheetWidget extends StatelessWidget {
                       ),
                     ),
                     SubTitleTextWidget(
-                      label: cartProvider
-                          .getTotal(productsProvider: productProvider)
-                          .toStringAsFixed(2),
+                      label:
+                          '${cartProvider.getTotal(productsProvider: productProvider).toStringAsFixed(2)}\$',
                       color: Colors.blue,
                     ),
                   ],
                 ),
               ),
               ElevatedButton(
-                onPressed: ()async {
-                 await function();
+                onPressed: () async {
+                  await function();
                 },
                 child: const Text('Checkout'),
               ),

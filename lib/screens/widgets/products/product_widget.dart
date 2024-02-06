@@ -81,7 +81,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SubTitleTextWidget(
-                        label: 'r${getCurrentProduct.productPrice}',
+                        label: '${getCurrentProduct.productPrice}\$',
                         color: Colors.blue,
                         fontWeight: FontWeight.w600,
                       ),
@@ -91,7 +91,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                         child: InkWell(
                           borderRadius: BorderRadius.circular(12),
                           onTap: () async {
-                                if (cartProvider.isProdinCart(
+                            if (cartProvider.isProdinCart(
                                 productId: getCurrentProduct.productId)) {
                               return;
                             }

@@ -43,6 +43,7 @@ class CartProvider with ChangeNotifier {
           }
         ])
       });
+      _cartItems.clear();
       await fetchCart();
       Fluttertoast.showToast(msg: "Item has been added");
     } catch (e) {

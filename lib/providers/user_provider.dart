@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:shopsmart_users/models/user_model.dart';
 
 class UserProvider with ChangeNotifier {
-  UserModel? userModel;
+  UserModel? _userModel;
   UserModel? get getUserModel {
-    return userModel;
+    return _userModel;
   }
+
   Future<UserModel?> fetchUserInfo() async {
     final auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
@@ -20,7 +21,7 @@ class UserProvider with ChangeNotifier {
           await FirebaseFirestore.instance.collection("users").doc(uid).get();
 
       final userDocDict = userDoc.data();
-      userModel = UserModel(
+      _userModel = UserModel(
         userId: userDoc.get("userId"),
         userName: userDoc.get("userName"),
         userImage: userDoc.get("userImage"),
@@ -31,7 +32,7 @@ class UserProvider with ChangeNotifier {
             userDocDict.containsKey("userWish") ? userDoc.get("userWish") : [],
         createdAt: userDoc.get('createdAt'),
       );
-      return userModel;
+      return _userModel;
     } on FirebaseException catch (error) {
       rethrow;
     } catch (error) {
@@ -39,6 +40,3 @@ class UserProvider with ChangeNotifier {
     }
   }
 }
-
-
- 

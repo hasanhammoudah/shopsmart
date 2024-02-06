@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shopsmart_users/providers/auth_provider.dart';
 import 'package:shopsmart_users/root_screen.dart';
 import 'package:shopsmart_users/screens/inner_screen/loading_manager.dart';
 import 'package:shopsmart_users/screens/widgets/subtitle_text.dart';

@@ -81,11 +81,12 @@ class CartWidget extends StatelessWidget {
                           Row(
                             children: [
                               SubTitleTextWidget(
-                                label: getCurrentProduct.productPrice,
+                                label: '${getCurrentProduct.productPrice}\$',
                                 color: Colors.blue,
                                 fontSize: 18,
                               ),
                               const Spacer(),
+                              
                               OutlinedButton.icon(
                                 style: OutlinedButton.styleFrom(
                                   side: const BorderSide(width: 1),

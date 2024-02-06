@@ -7,7 +7,7 @@ class OrdersModelAdvanced with ChangeNotifier {
   final String productId;
   final String productTitle;
   final String userName;
-  final double price;
+  final String price;
   final String imageUrl;
   final String quantity;
   final Timestamp orderDate;

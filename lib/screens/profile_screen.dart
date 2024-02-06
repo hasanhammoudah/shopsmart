@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:shopsmart_users/models/user_model.dart';
 import 'package:shopsmart_users/providers/theme_provider.dart';
@@ -236,6 +237,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                       await MyAppFunctions.showErrorOrWarringDialog(
                           context: context,
                           fct: () async {
+                            GoogleSignIn googleSignIn = GoogleSignIn();
+                            googleSignIn.disconnect();
+                            await FirebaseAuth.instance.signOut();
                             Navigator.pushNamed(context, LoginScreen.routeName);
                           },
                           isError: false,

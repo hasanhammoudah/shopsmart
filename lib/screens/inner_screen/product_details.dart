@@ -23,7 +23,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final productProvider = Provider.of<ProductProvider>(context);
-   
+
     String productId = ModalRoute.of(context)!.settings.arguments as String;
     final getCurrentProduct =
         productProvider.findByProdId(productId.toString());
@@ -73,7 +73,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               width: 20,
                             ),
                             SubTitleTextWidget(
-                              label: getCurrentProduct.productPrice,
+                              label: '${getCurrentProduct.productPrice}\$',
                               color: Colors.blue,
                               fontSize: 20,
                               fontWeight: FontWeight.w700,

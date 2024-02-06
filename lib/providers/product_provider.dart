@@ -36,6 +36,7 @@ class ProductProvider extends ChangeNotifier {
   }
 
   final productDb = FirebaseFirestore.instance.collection('products');
+
   Future<List<ProductModel>> fetchProduct() async {
     try {
       await productDb

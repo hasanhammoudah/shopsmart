@@ -41,7 +41,7 @@ class _RootScreenState extends State<RootScreen> {
   Future<void> fetchNCT() async {
     final productProvider =
         Provider.of<ProductProvider>(context, listen: false);
-    final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    final cartProvider = Provider.of<CartProvider>(context, listen: true);
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     final wishListProvider =
         Provider.of<WishlistProvider>(context, listen: false);
@@ -61,6 +61,9 @@ class _RootScreenState extends State<RootScreen> {
     if (isLoadingProd) {
       fetchNCT();
     }
+    setState(() {
+      // cartProvider
+    });
     super.didChangeDependencies();
   }
 

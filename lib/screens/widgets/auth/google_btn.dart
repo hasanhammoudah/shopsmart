@@ -19,7 +19,6 @@ class GoogleButton extends StatelessWidget {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-
       UserCredential userCredential =
           await _auth.signInWithCredential(credential);
 
