@@ -6,7 +6,7 @@
 <br></br>
 <img src="assets/images/screenshot-1707218090016.png" alt="Example Image 1" width="300" height="300">
 <br></br>
-<img src="assets/images/screenshot-1707218936954.png alt="Example Image 1" width="300" height="300">
+<img src="assets/images/screenshot-1707218936954.png" alt="Example Image 1" width="300" height="300">
 <br></br>
 <img src="assets/images/screenshot-1707218945594.png" alt="Example Image 1" width="300" height="300">
 <br></br>
