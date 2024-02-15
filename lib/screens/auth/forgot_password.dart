@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:shopsmart_users/screens/widgets/app_bar_widget.dart';
 import 'package:shopsmart_users/screens/widgets/subtitle_text.dart';
 import 'package:shopsmart_users/screens/widgets/title_text.dart';
+import 'package:shopsmart_users/services/my_app_functions.dart';
 import 'package:shopsmart_users/utils/validator.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -34,7 +36,23 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Future<void> _forgotPassFCT() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-    if (isValid) {}
+    if (isValid) {
+      try {
+        await FirebaseAuth.instance
+            .sendPasswordResetEmail(email: _emailController.text.trim());
+        await MyAppFunctions.showErrorOrWarringDialog(
+          context: context,
+          fct: () {},
+          subTitle: 'password reset link sent! Check your email',
+        );
+      } on FirebaseAuthException catch (e) {
+        await MyAppFunctions.showErrorOrWarringDialog(
+          context: context,
+          fct: () {},
+          subTitle: e.toString(),
+        );
+      }
+    }
   }
 
   @override

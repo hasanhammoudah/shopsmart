@@ -238,7 +238,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                           context: context,
                           fct: () async {
                             GoogleSignIn googleSignIn = GoogleSignIn();
-                            googleSignIn.disconnect();
+                            await googleSignIn.disconnect();
                             await FirebaseAuth.instance.signOut();
                             Navigator.pushNamed(context, LoginScreen.routeName);
                           },
