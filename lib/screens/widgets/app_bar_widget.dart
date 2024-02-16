@@ -5,7 +5,8 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     required this.child,
     this.imagePath,
-    this.actions, this.centerTitle,
+    this.actions,
+    this.centerTitle,
   });
   final Widget child;
   final String? imagePath;
@@ -14,8 +15,6 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-     // TODO this line not show the leading icon
-      //  automaticallyImplyLeading: false,
       actions: actions,
       centerTitle: centerTitle,
       title: child,

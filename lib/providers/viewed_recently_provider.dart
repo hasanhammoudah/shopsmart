@@ -16,7 +16,6 @@ class ViewedProdProvider with ChangeNotifier {
         productId: productId,
       ),
     );
+    notifyListeners();
   }
-
-  notifyListeners();
 }
